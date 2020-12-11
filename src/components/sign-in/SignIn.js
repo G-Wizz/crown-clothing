@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
 
+import { signInWithGoogle } from '../../firebase/Firebase.utils';
+
 import './SignIn.scss';
 
 class SignIn extends Component {
@@ -23,7 +25,7 @@ class SignIn extends Component {
 
   handleChange = (event) => {
     const { value, name } = event.target;
-    // this is so that both inputs can use the same onChange function..you can create 2 different functions
+
     this.setState({ [name]: value });
   };
 
@@ -35,24 +37,27 @@ class SignIn extends Component {
 
         <form onSubmit={this.handleSubmit}>
           <FormInput
-            type="email"
             name="email"
+            type="email"
             handleChange={this.handleChange}
             value={this.state.email}
             label="email"
             required
           />
-
           <FormInput
-            type="password"
             name="password"
-            handleChange={this.handleChange}
+            type="password"
             value={this.state.password}
+            handleChange={this.handleChange}
             label="password"
             required
           />
-
-          <CustomButton type="submit"> Sign In </CustomButton>
+          <div className="buttons">
+            <CustomButton type="submit"> Sign in </CustomButton>
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+              Sign in with Google
+            </CustomButton>
+          </div>
         </form>
       </div>
     );
